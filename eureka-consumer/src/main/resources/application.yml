@@ -1,0 +1,19 @@
+
+server:
+  port: 7878
+
+spring:
+  application:
+    name: eureka-consumer-01
+eureka:
+  instance:
+    hostname: 127.0.0.1       #配置主机名
+  client:
+    registerWithEureka: false #该服务为注册中心，增加此行代表不在注册中心注册自己
+    fetchRegistry: true       #是否从eureka服务器获取注册信息#由于注册中心呢的职责是维护实例，为FALSE代表其不用去检索服务
+    serviceUrl:               #代表注册到eureka服务端的地址 root:123@
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+
+
+

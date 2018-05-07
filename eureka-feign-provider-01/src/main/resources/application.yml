@@ -1,0 +1,19 @@
+server:
+  port: 8891
+
+spring:
+  application:
+    name: client01
+
+#hellow:
+#  hellowServicePath: http://127.0.0.1:8899/hello
+
+eureka:
+  instance:
+    hostname: 127.0.0.1
+#    prefer-ip-address: true
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:               #代表注册到eureka服务端的地址 root:123@
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
