@@ -1,11 +1,7 @@
 
-
-server:
-  port: 8761
-
 spring:
-  application:
-    name: eureka-server-01
+  profiles:
+    active: peer1
 #  security:
 #    basic:
 #      enabled: true             #代表开启账号密码认证,登录eurekaServer时需要输入账号密码
@@ -13,16 +9,72 @@ spring:
 #      name: root
 #      password: 123
 
+#eureka:
+#  instance:
+#    hostname: 127.0.0.1       #配置主机名
+#    #prefer-ip-address: true
+#    #ip-address: true
+#  client:
+#    registerWithEureka: false #该服务为注册中心，增加此行代表不在注册中心注册自己
+#    fetchRegistry: false      #由于注册中心呢的职责是维护实例，为FALSE代表其不用去检索服务
+#    serviceUrl:               #代表注册到eureka服务端的地址  root:123@
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#  server:
+#    enable-self-preservation: false       #先关闭Eureka的自我保护功能
+#    eviction-interval-timer-in-ms: 4000   #清理无效节点的时间间隔
+
+
+---
+spring:
+  application:
+    name: spring-cloud-eureka
+  profiles: peer1
+server:
+  port: 8000
 eureka:
   instance:
-    hostname: 127.0.0.1       #配置主机名
-#    prefer-ip-address: true
-    #ip-address: true
+    hostname: peer1
   client:
-    registerWithEureka: false #该服务为注册中心，增加此行代表不在注册中心注册自己
-    fetchRegistry: false      #由于注册中心呢的职责是维护实例，为FALSE代表其不用去检索服务
-    serviceUrl:               #代表注册到eureka服务端的地址  root:123@
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-  server:
-    enable-self-preservation: false       #先关闭Eureka的自我保护功能
-    eviction-interval-timer-in-ms: 4000   #清理无效节点的时间间隔
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://peer2:8001/eureka/,http://peer3:8002/eureka/
+---
+spring:
+  application:
+    name: spring-cloud-eureka
+  profiles: peer2
+server:
+  port: 8001
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://peer1:8000/eureka/,http://peer3:8002/eureka/
+---
+spring:
+  application:
+    name: spring-cloud-eureka
+  profiles: peer3
+server:
+  port: 8002
+eureka:
+  instance:
+    hostname: peer3
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://peer1:8000/eureka/,http://peer2:8001/eureka/
+
+
+
+
+
+
+
+
+

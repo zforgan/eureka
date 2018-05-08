@@ -16,4 +16,4 @@ eureka:
     healthcheck:
       enabled: true
     serviceUrl:               #代表注册到eureka服务端的地址 root:123@
-      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+      defaultZone: http://peer1:8000/eureka/,http://peer2:8001/eureka/,http://peer3:8002/eureka/
